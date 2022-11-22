@@ -303,6 +303,7 @@ void matrix_scan_user(void) {
         leading = false;
         leader_end();
 
+        /* Support easy tmux navigation with ctrl + a prefix. */
         SEQ_ONE_KEY(KC_H) {
             register_ctrl_sequence(KC_A);
 
@@ -333,25 +334,43 @@ void matrix_scan_user(void) {
             register_code(KC_Z);
             unregister_code(KC_Z);
         }
+
+        /* Tile tmux window horizontally. */
         SEQ_ONE_KEY(KC_I) {
             register_ctrl_sequence(KC_A);
 
             register_code(KC_MINS);
             unregister_code(KC_MINS);
         }
+
+        /* Tile tmux window vertically. */
         SEQ_ONE_KEY(KC_SLSH) {
             register_ctrl_sequence(KC_A);
 
             register_code16(KC_PIPE);
             unregister_code16(KC_PIPE);
         }
-        SEQ_ONE_KEY(KC_C) {
+
+        /* Move to next tmux window. */
+        SEQ_ONE_KEY(KC_N) {
+            register_ctrl_sequence(KC_A);
+
+            register_code16(KC_N);
+            unregister_code16(KC_N);
+        }
+
+        /* Support vim-style copy. */
+        SEQ_ONE_KEY(KC_Y) {
             register_ctrl_sequence(KC_C);
         }
-        SEQ_ONE_KEY(KC_V) {
+
+        /* Support vim-style paste. */
+        SEQ_ONE_KEY(KC_P) {
             register_ctrl_sequence(KC_V);
         }
-        SEQ_TWO_KEYS(KC_V, KC_V) {
+
+        /* Support vim-style paste. */
+        SEQ_TWO_KEYS(KC_P, KC_P) {
             register_code(KC_RCTL);
             register_code(KC_LSFT);
             register_code(KC_V);
