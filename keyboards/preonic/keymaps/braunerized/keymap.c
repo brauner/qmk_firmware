@@ -336,6 +336,13 @@ static inline void leader_bindings(void)
             unregister_code(KC_Z);
         }
 
+        SEQ_TWO_KEYS(KC_K, KC_K) {
+            register_ctrl_sequence(KC_A);
+
+            register_code(KC_LBRC);
+            unregister_code(KC_LBRC);
+        }
+
         /* Tile tmux window horizontally. */
         SEQ_ONE_KEY(KC_I) {
             register_ctrl_sequence(KC_A);
