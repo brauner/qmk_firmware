@@ -363,96 +363,96 @@ static inline void leader_bindings(void)
         SEQ_ONE_KEY(KC_N) {
             register_ctrl_sequence(KC_A);
 
-            register_code16(KC_N);
-            unregister_code16(KC_N);
+            register_code(KC_N);
+            unregister_code(KC_N);
         }
 
         /* Move to tmux window 0. */
         SEQ_ONE_KEY(KC_0) {
             register_ctrl_sequence(KC_A);
 
-            register_code16(KC_0);
-            unregister_code16(KC_0);
+            register_code(KC_0);
+            unregister_code(KC_0);
         }
 
         /* Move to tmux window 1. */
         SEQ_ONE_KEY(KC_1) {
             register_ctrl_sequence(KC_A);
 
-            register_code16(KC_1);
-            unregister_code16(KC_1);
+            register_code(KC_1);
+            unregister_code(KC_1);
         }
 
         /* Move to tmux window 1. */
         SEQ_ONE_KEY(KC_1) {
             register_ctrl_sequence(KC_A);
 
-            register_code16(KC_1);
-            unregister_code16(KC_1);
+            register_code(KC_1);
+            unregister_code(KC_1);
         }
 
         /* Move to tmux window 2. */
         SEQ_ONE_KEY(KC_2) {
             register_ctrl_sequence(KC_A);
 
-            register_code16(KC_2);
-            unregister_code16(KC_2);
+            register_code(KC_2);
+            unregister_code(KC_2);
         }
 
         /* Move to tmux window 3. */
         SEQ_ONE_KEY(KC_3) {
             register_ctrl_sequence(KC_A);
 
-            register_code16(KC_3);
-            unregister_code16(KC_3);
+            register_code(KC_3);
+            unregister_code(KC_3);
         }
 
         /* Move to tmux window 4. */
         SEQ_ONE_KEY(KC_4) {
             register_ctrl_sequence(KC_A);
 
-            register_code16(KC_4);
-            unregister_code16(KC_4);
+            register_code(KC_4);
+            unregister_code(KC_4);
         }
 
         /* Move to tmux window 5. */
         SEQ_ONE_KEY(KC_5) {
             register_ctrl_sequence(KC_A);
 
-            register_code16(KC_5);
-            unregister_code16(KC_5);
+            register_code(KC_5);
+            unregister_code(KC_5);
         }
 
         /* Move to tmux window 6. */
         SEQ_ONE_KEY(KC_6) {
             register_ctrl_sequence(KC_A);
 
-            register_code16(KC_6);
-            unregister_code16(KC_6);
+            register_code(KC_6);
+            unregister_code(KC_6);
         }
 
         /* Move to tmux window 7. */
         SEQ_ONE_KEY(KC_7) {
             register_ctrl_sequence(KC_A);
 
-            register_code16(KC_7);
-            unregister_code16(KC_7);
+            register_code(KC_7);
+            unregister_code(KC_7);
         }
 
         /* Move to tmux window 8 */
         SEQ_ONE_KEY(KC_8) {
             register_ctrl_sequence(KC_A);
 
-            register_code16(KC_8);
-            unregister_code16(KC_8);
+            register_code(KC_8);
+            unregister_code(KC_8);
         }
 
         /* Move to tmux window 9. */
         SEQ_ONE_KEY(KC_9) {
             register_ctrl_sequence(KC_A);
 
-            register_code16(KC_9);
-            unregister_code16(KC_9);
+            register_code(KC_9);
+            unregister_code(KC_9);
         }
 
         /* Support vim-style copy. */
