@@ -304,8 +304,18 @@ static inline void leader_bindings(void)
         leading = false;
         leader_end();
 
+        /* Support vim-style copy. */
+        SEQ_ONE_KEY(KC_Y) {
+            register_code(KC_RCTL);
+            register_code(KC_LSFT);
+            register_code(KC_C);
+            unregister_code(KC_C);
+            unregister_code(KC_RCTL);
+            unregister_code(KC_LSFT);
+        }
+
         /* Support vim-style paste. */
-        SEQ_TWO_KEYS(KC_P, KC_P) {
+        SEQ_ONE_KEY(KC_P) {
             register_code(KC_RCTL);
             register_code(KC_LSFT);
             register_code(KC_V);
