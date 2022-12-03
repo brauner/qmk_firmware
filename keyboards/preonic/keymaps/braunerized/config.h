@@ -54,3 +54,5 @@
 #define LEADER_TIMEOUT 250
 
 #define LEADER_NO_TIMEOUT
+
+#define MK_COMBINED

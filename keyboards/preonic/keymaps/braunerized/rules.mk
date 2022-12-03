@@ -1,2 +1,3 @@
 LEADER_ENABLE = yes
+MOUSEKEY_ENABLE = yes
 SRC += muse.c
