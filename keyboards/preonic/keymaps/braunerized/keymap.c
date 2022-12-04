@@ -326,6 +326,18 @@ static inline void leader_bindings(void)
         leading = false;
         leader_end();
 
+        SEQ_THREE_KEYS(KC_A, KC_C, KC_K) {
+            SEND_STRING("Acked-by: Christian Brauner <brauner@kernel.org>");
+        }
+
+        SEQ_THREE_KEYS(KC_R, KC_V, KC_B) {
+            SEND_STRING("Reviewed-by: Christian Brauner <brauner@kernel.org>");
+        }
+
+        SEQ_THREE_KEYS(KC_S, KC_O, KC_B) {
+            SEND_STRING("Signed-off-by: Christian Brauner <brauner@kernel.org>");
+        }
+
         /* Support vim-style copy. */
         SEQ_ONE_KEY(KC_Y) {
             register_code(KC_RCTL);
