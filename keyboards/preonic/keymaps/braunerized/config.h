@@ -55,4 +55,5 @@
 
 #define LEADER_NO_TIMEOUT
 
-#define MK_COMBINED
+#define MK_3_SPEED
+#define MK_MOMENTARY_ACCEL
