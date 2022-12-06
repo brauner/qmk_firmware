@@ -38,9 +38,13 @@ enum preonic_keycodes {
   BACKLIT
 };
 
-#define MOD_TAP_LOWER_SPC LT(_LOWER, KC_SPC)
-#define MOD_TAP_LSFT_ESC LSFT_T(KC_ESC)
-#define MOD_TAP_LSFT_ENT LSFT_T(KC_ENT)
+#define MOD_TAP_LSFT_ESC  LSFT_T(KC_ESC)
+#define MOD_TAP_LSFT_ENT  LSFT_T(KC_ENT)
+
+#define LT_HOLD_COPY      LT(_QWERTY, KC_C)
+#define LT_HOLD_CUT       LT(_QWERTY, KC_X)
+#define LT_HOLD_PASTE     LT(_QWERTY, KC_V)
+#define LT_LOWER_SPC      LT(_LOWER,  KC_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -58,11 +62,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_preonic_grid(
-  KC_CAPS,          KC_1,    KC_2,    KC_3,  KC_4,  KC_5,    KC_6,        KC_7,              KC_8,    KC_9,   KC_0,    _______,
-  KC_LCTL,          KC_Q,    KC_W,    KC_E,  KC_R,  KC_T,    KC_Y,        KC_U,              KC_I,    KC_O,   KC_P,    KC_RCTL,
-  MOD_TAP_LSFT_ESC, KC_A,    KC_S,    KC_D,  KC_F,  KC_G,    KC_H,        KC_J,              KC_K,    KC_L,   KC_QUOT, MOD_TAP_LSFT_ENT,
-  KC_LEAD,          KC_Z,    KC_X,    KC_C,  KC_V,  KC_B,    KC_N,        KC_M,              KC_COMM, KC_DOT, KC_SLSH, KC_LEAD,
-  _______,          _______, LAYER2,  RAISE, LOWER, KC_LALT, TG(_MOUSE1), MOD_TAP_LOWER_SPC, RAISE,   LAYER2, _______, MANAGE
+  KC_CAPS,          KC_1,    KC_2,        KC_3,         KC_4,          KC_5,    KC_6,        KC_7,         KC_8,    KC_9,   KC_0,    _______,
+  KC_LCTL,          KC_Q,    KC_W,        KC_E,         KC_R,          KC_T,    KC_Y,        KC_U,         KC_I,    KC_O,   KC_P,    KC_RCTL,
+  MOD_TAP_LSFT_ESC, KC_A,    KC_S,        KC_D,         KC_F,          KC_G,    KC_H,        KC_J,         KC_K,    KC_L,   KC_QUOT, MOD_TAP_LSFT_ENT,
+  KC_LEAD,          KC_Z,    LT_HOLD_CUT, LT_HOLD_COPY, LT_HOLD_PASTE, KC_B,    KC_N,        KC_M,         KC_COMM, KC_DOT, KC_SLSH, KC_LEAD,
+  _______,          _______, LAYER2,      RAISE,        LOWER,         KC_LALT, TG(_MOUSE1), LT_LOWER_SPC, RAISE,   LAYER2, _______, MANAGE
 ),
 
 /* Umlaut
@@ -259,6 +263,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
+        case LT_HOLD_CUT:
+          if (!record->tap.count && record->event.pressed) {
+              tap_code16(C(KC_X)); /* cut on hold */
+              return false;
+          }
+          return true;
+        case LT_HOLD_COPY:
+          if (!record->tap.count && record->event.pressed) {
+              tap_code16(C(KC_C)); /* copy on hold */
+              return false;
+          }
+          return true;
+        case LT_HOLD_PASTE:
+          if (!record->tap.count && record->event.pressed) {
+              tap_code16(C(KC_V)); /* paste on hold */
+              return false;
+          }
+          return true;
       }
     return true;
 };
