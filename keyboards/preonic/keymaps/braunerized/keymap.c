@@ -19,7 +19,7 @@
 
 enum preonic_layers {
   _QWERTY,
-  _LAYER1,
+  _UMLAUT,
   _LAYER2,
   _LOWER,
   _RAISE,
@@ -29,7 +29,7 @@ enum preonic_layers {
 
 enum preonic_keycodes {
   QWERTY = SAFE_RANGE,
-  LAYER1,
+  UMLAUT,
   LAYER2,
   LOWER,
   RAISE,
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,          _______, LAYER2,  RAISE, MOD_TAP_LOWER_SPC, KC_LALT, TG(_MOUSE1), MOD_TAP_LOWER_SPC, RAISE,   LAYER2, _______, MANAGE
 ),
 
-/* Layer1
+/* Umlaut
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_LAYER1] = LAYOUT_preonic_grid(
+[_UMLAUT] = LAYOUT_preonic_grid(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LAYER2] = LAYOUT_preonic_grid(
   XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RALT(KC_Y), XXXXXXX, RALT(KC_P), XXXXXXX, XXXXXXX,
-  XXXXXXX, RALT(KC_Q), RALT(KC_S), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
+  KC_LSFT, RALT(KC_Q), RALT(KC_S), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, KC_LSFT,
   XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX
 ),
@@ -199,11 +199,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
-        case LAYER1:
+        case UMLAUT:
           if (record->event.pressed) {
-            layer_on(_LAYER1);
+            layer_on(_UMLAUT);
           } else {
-            layer_off(_LAYER1);
+            layer_off(_UMLAUT);
           }
           return false;
           break;
