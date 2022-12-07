@@ -51,6 +51,39 @@ enum preonic_keycodes {
 #define LT_UMLAUT_UE   LT(_QWERTY, KC_U)
 #define LT_UMLAUT_SZ   LT(_QWERTY, KC_S)
 
+const key_override_t nop_shift_quote = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, KC_NO); /* " */
+const key_override_t nop_shift_dot   = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_NO);  /* < */
+const key_override_t nop_shift_comma = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_NO); /* > */
+const key_override_t nop_shift_slash = ko_make_basic(MOD_MASK_SHIFT, KC_SLSH, KC_NO); /* ? */
+const key_override_t nop_shift_one   = ko_make_basic(MOD_MASK_SHIFT, KC_1, KC_NO);    /* ! */
+const key_override_t nop_shift_two   = ko_make_basic(MOD_MASK_SHIFT, KC_2, KC_NO);    /* override @ */
+const key_override_t nop_shift_three = ko_make_basic(MOD_MASK_SHIFT, KC_3, KC_NO);    /* override # */
+const key_override_t nop_shift_four  = ko_make_basic(MOD_MASK_SHIFT, KC_4, KC_NO);    /* override $ */
+const key_override_t nop_shift_five  = ko_make_basic(MOD_MASK_SHIFT, KC_5, KC_NO);    /* override % */
+const key_override_t nop_shift_six   = ko_make_basic(MOD_MASK_SHIFT, KC_6, KC_NO);    /* override ^ */
+const key_override_t nop_shift_seven = ko_make_basic(MOD_MASK_SHIFT, KC_7, KC_NO);    /* override & */
+const key_override_t nop_shift_eight = ko_make_basic(MOD_MASK_SHIFT, KC_8, KC_NO);    /* override * */
+const key_override_t nop_shift_nine  = ko_make_basic(MOD_MASK_SHIFT, KC_9, KC_NO);    /* override ( */
+const key_override_t nop_shift_zero  = ko_make_basic(MOD_MASK_SHIFT, KC_0, KC_NO);    /* override ) */
+
+const key_override_t **key_overrides = (const key_override_t *[]){
+  &nop_shift_quote,
+  &nop_shift_dot,
+  &nop_shift_comma,
+  &nop_shift_slash,
+  &nop_shift_one,
+  &nop_shift_two,
+  &nop_shift_three,
+  &nop_shift_four,
+  &nop_shift_five,
+  &nop_shift_six,
+  &nop_shift_seven,
+  &nop_shift_eight,
+  &nop_shift_nine,
+  &nop_shift_zero,
+  NULL
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
