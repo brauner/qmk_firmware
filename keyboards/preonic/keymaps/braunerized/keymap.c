@@ -21,20 +21,20 @@ enum preonic_layers {
   _QWERTY,
   _LOWER,
   _RAISE,
-  _UMLAUT,
-  _MOUSE1,
+  _MOUSE,
   _MANAGE,
-  _UNUSED
+  _UNUSED1,
+  _UNUSED2
 };
 
 enum preonic_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
-  UMLAUT,
-  MOUSE1,
+  MOUSE,
   MANAGE,
-  UNUSED,
+  UNUSED1,
+  UNUSED2,
   BACKLIT
 };
 
@@ -45,6 +45,11 @@ enum preonic_keycodes {
 #define LT_HOLD_CUT       LT(_QWERTY, KC_X)
 #define LT_HOLD_PASTE     LT(_QWERTY, KC_V)
 #define LT_LOWER_SPC      LT(_LOWER,  KC_SPC)
+
+#define LT_UMLAUT_AE   LT(_QWERTY, KC_A)
+#define LT_UMLAUT_OE   LT(_QWERTY, KC_O)
+#define LT_UMLAUT_UE   LT(_QWERTY, KC_U)
+#define LT_UMLAUT_SZ   LT(_QWERTY, KC_S)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -58,15 +63,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |----------+------+------+------+------------+------|------+------------+------+------+------+------------|
  * | Leader   |   Z  |   X  |   C  |     V      |   B  |   N  |     M      |   ,  |   .  |   /  | Leader     |
  * |----------+------+------+------+------------+------+------+------------+------+------+------+------------|
- * |          |      |Layer2|Raise |Lower/Space | Alt  |Mouse1|Lower/Space |Raise |Layer2|      | Manage     |
+ * |          |      |      |Raise |Lower/Space | Alt  |Mouse |Lower/Space |Raise |      |      | Manage     |
  * `---------------------------------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_preonic_grid(
-  KC_CAPS,          KC_1,    KC_2,        KC_3,         KC_4,          KC_5,    KC_6,        KC_7,         KC_8,    KC_9,   KC_0,    _______,
-  KC_LCTL,          KC_Q,    KC_W,        KC_E,         KC_R,          KC_T,    KC_Y,        KC_U,         KC_I,    KC_O,   KC_P,    KC_RCTL,
-  MOD_TAP_LSFT_ESC, KC_A,    KC_S,        KC_D,         KC_F,          KC_G,    KC_H,        KC_J,         KC_K,    KC_L,   KC_QUOT, MOD_TAP_LSFT_ENT,
-  KC_LEAD,          KC_Z,    LT_HOLD_CUT, LT_HOLD_COPY, LT_HOLD_PASTE, KC_B,    KC_N,        KC_M,         KC_COMM, KC_DOT, KC_SLSH, KC_LEAD,
-  _______,          _______, UMLAUT,      RAISE,        LOWER,         KC_LALT, TG(_MOUSE1), LT_LOWER_SPC, RAISE,   UMLAUT, _______, MANAGE
+  KC_CAPS,          KC_1,         KC_2,         KC_3,         KC_4,          KC_5,    KC_6,        KC_7,         KC_8,    KC_9,         KC_0,    _______,
+  KC_LCTL,          KC_Q,         KC_W,         KC_E,         KC_R,          KC_T,    KC_Y,        LT_UMLAUT_UE, KC_I,    LT_UMLAUT_OE, KC_P,    KC_RCTL,
+  MOD_TAP_LSFT_ESC, LT_UMLAUT_AE, LT_UMLAUT_SZ, KC_D,         KC_F,          KC_G,    KC_H,        KC_J,         KC_K,    KC_L,         KC_QUOT, MOD_TAP_LSFT_ENT,
+  KC_LEAD,          KC_Z,         LT_HOLD_CUT,  LT_HOLD_COPY, LT_HOLD_PASTE, KC_B,    KC_N,        KC_M,         KC_COMM, KC_DOT,       KC_SLSH, KC_LEAD,
+  _______,          _______,      _______,      RAISE,        LOWER,         KC_LALT, TG(_MOUSE),  LT_LOWER_SPC, RAISE,   _______,      _______, MANAGE
 ),
 
 /* Lower
@@ -111,28 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
-/* Umlaut
- * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |  Ü   |      |  Ö   |      |      |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |  Ä   |  ß   |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * `-----------------------------------------------------------------------------------'
- */
-[_UMLAUT] = LAYOUT_preonic_grid(
-  XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RALT(KC_Y), XXXXXXX, RALT(KC_P), XXXXXXX, XXXXXXX,
-  KC_LSFT, RALT(KC_Q), RALT(KC_S), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, KC_LSFT,
-  XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX
-),
-
-/* Mouse1
+/* Mouse
  * ,------------------------------------------------------------------------------------------------------------------------------.
  * |      |      |              |              |              |      |           |           |         |            |      |      |
  * |------+------+--------------+--------------+--------------+------+-----------+-----------+---------+------------+------+------|
@@ -145,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |Accelaration 2|Accelaration 1|Accelaration 0|      |           |           |         |            |      |      |
  * `------------------------------------------------------------------------------------------------------------------------------'
  */
-[_MOUSE1] = LAYOUT_preonic_grid(
+[_MOUSE] = LAYOUT_preonic_grid(
   XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,     XXXXXXX,        XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX, KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, KC_MS_BTN3,   KC_MS_BTN2,   KC_MS_BTN1,   XXXXXXX, KC_MS_LEFT,    KC_MS_DOWN,    KC_MS_UP,    KC_MS_RIGHT,    XXXXXXX, XXXXXXX,
@@ -173,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
-/* Unused
+/* Unused1
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -186,7 +170,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_UNUSED] = LAYOUT_preonic_grid(
+[_UNUSED1] = LAYOUT_preonic_grid(
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+),
+
+/* Unused2
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_UNUSED2] = LAYOUT_preonic_grid(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -219,14 +224,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
-        case UMLAUT:
-          if (record->event.pressed) {
-            layer_on(_UMLAUT);
-          } else {
-            layer_off(_UMLAUT);
-          }
-          return false;
-          break;
         case MANAGE:
           if (record->event.pressed) {
             layer_on(_MANAGE);
@@ -235,11 +232,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
-        case UNUSED:
+        case UNUSED1:
           if (record->event.pressed) {
-            layer_on(_UNUSED);
+            layer_on(_UNUSED1);
           } else {
-            layer_off(_UNUSED);
+            layer_off(_UNUSED1);
+          }
+          return false;
+          break;
+        case UNUSED2:
+          if (record->event.pressed) {
+            layer_on(_UNUSED2);
+          } else {
+            layer_off(_UNUSED2);
           }
           return false;
           break;
@@ -278,6 +283,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case LT_HOLD_PASTE:
           if (!record->tap.count && record->event.pressed) {
               tap_code16(C(KC_V)); /* paste on hold */
+              return false;
+          }
+          return true;
+        case LT_UMLAUT_AE:
+          if (!record->tap.count && record->event.pressed) {
+              tap_code16(RALT(KC_Q));
+              return false;
+          }
+          return true;
+        case LT_UMLAUT_OE:
+          if (!record->tap.count && record->event.pressed) {
+              tap_code16(RALT(KC_P));
+              return false;
+          }
+          return true;
+        case LT_UMLAUT_UE:
+          if (!record->tap.count && record->event.pressed) {
+              tap_code16(RALT(KC_Y));
+              return false;
+          }
+          return true;
+        case LT_UMLAUT_SZ:
+          if (!record->tap.count && record->event.pressed) {
+              tap_code16(RALT(KC_S));
               return false;
           }
           return true;
