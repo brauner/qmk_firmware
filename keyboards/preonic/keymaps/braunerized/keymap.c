@@ -19,22 +19,22 @@
 
 enum preonic_layers {
   _QWERTY,
-  _UMLAUT,
-  _LAYER2,
   _LOWER,
   _RAISE,
+  _UMLAUT,
   _MOUSE1,
-  _MANAGE
+  _MANAGE,
+  _UNUSED
 };
 
 enum preonic_keycodes {
   QWERTY = SAFE_RANGE,
-  UMLAUT,
-  LAYER2,
   LOWER,
   RAISE,
+  UMLAUT,
   MOUSE1,
   MANAGE,
+  UNUSED,
   BACKLIT
 };
 
@@ -66,49 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL,          KC_Q,    KC_W,        KC_E,         KC_R,          KC_T,    KC_Y,        KC_U,         KC_I,    KC_O,   KC_P,    KC_RCTL,
   MOD_TAP_LSFT_ESC, KC_A,    KC_S,        KC_D,         KC_F,          KC_G,    KC_H,        KC_J,         KC_K,    KC_L,   KC_QUOT, MOD_TAP_LSFT_ENT,
   KC_LEAD,          KC_Z,    LT_HOLD_CUT, LT_HOLD_COPY, LT_HOLD_PASTE, KC_B,    KC_N,        KC_M,         KC_COMM, KC_DOT, KC_SLSH, KC_LEAD,
-  _______,          _______, LAYER2,      RAISE,        LOWER,         KC_LALT, TG(_MOUSE1), LT_LOWER_SPC, RAISE,   LAYER2, _______, MANAGE
-),
-
-/* Umlaut
- * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * `-----------------------------------------------------------------------------------'
- */
-[_UMLAUT] = LAYOUT_preonic_grid(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-),
-
-/* Layer2
- * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |  Ü   |      |  Ö   |      |      |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |  Ä   |  ß   |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * `-----------------------------------------------------------------------------------'
- */
-[_LAYER2] = LAYOUT_preonic_grid(
-  XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RALT(KC_Y), XXXXXXX, RALT(KC_P), XXXXXXX, XXXXXXX,
-  KC_LSFT, RALT(KC_Q), RALT(KC_S), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, KC_LSFT,
-  XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX
+  _______,          _______, UMLAUT,      RAISE,        LOWER,         KC_LALT, TG(_MOUSE1), LT_LOWER_SPC, RAISE,   UMLAUT, _______, MANAGE
 ),
 
 /* Lower
@@ -153,6 +111,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
+/* Umlaut
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |  Ü   |      |  Ö   |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |  Ä   |  ß   |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_UMLAUT] = LAYOUT_preonic_grid(
+  XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RALT(KC_Y), XXXXXXX, RALT(KC_P), XXXXXXX, XXXXXXX,
+  KC_LSFT, RALT(KC_Q), RALT(KC_S), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, KC_LSFT,
+  XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX
+),
+
 /* Mouse1
  * ,------------------------------------------------------------------------------------------------------------------------------.
  * |      |      |              |              |              |      |           |           |         |            |      |      |
@@ -192,6 +171,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, XXXXXXX, MU_MOD,  AU_ON,   AU_OFF,  XXXXXXX, XXXXXXX, QWERTY,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+),
+
+/* Unused
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_UNUSED] = LAYOUT_preonic_grid(
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 )
 };
 
@@ -200,22 +200,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case QWERTY:
           if (record->event.pressed) {
             set_single_persistent_default_layer(_QWERTY);
-          }
-          return false;
-          break;
-        case UMLAUT:
-          if (record->event.pressed) {
-            layer_on(_UMLAUT);
-          } else {
-            layer_off(_UMLAUT);
-          }
-          return false;
-          break;
-        case LAYER2:
-          if (record->event.pressed) {
-            layer_on(_LAYER2);
-          } else {
-            layer_off(_LAYER2);
           }
           return false;
           break;
@@ -235,11 +219,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
+        case UMLAUT:
+          if (record->event.pressed) {
+            layer_on(_UMLAUT);
+          } else {
+            layer_off(_UMLAUT);
+          }
+          return false;
+          break;
         case MANAGE:
           if (record->event.pressed) {
             layer_on(_MANAGE);
           } else {
             layer_off(_MANAGE);
+          }
+          return false;
+          break;
+        case UNUSED:
+          if (record->event.pressed) {
+            layer_on(_UNUSED);
+          } else {
+            layer_off(_UNUSED);
           }
           return false;
           break;
