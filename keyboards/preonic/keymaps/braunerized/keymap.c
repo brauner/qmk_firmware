@@ -408,6 +408,16 @@ static inline void register_ctrl_sequence(uint16_t keycode)
     unregister_code(KC_RCTL);
 }
 
+static inline void register_alt_shift_sequence(uint16_t keycode)
+{
+    register_code(KC_LALT);
+    register_code(KC_LSFT);
+    register_code(keycode);
+    unregister_code(keycode);
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LALT);
+}
+
 static inline void leader_bindings(void)
 {
     LEADER_DICTIONARY() {
@@ -444,6 +454,38 @@ static inline void leader_bindings(void)
             unregister_code(KC_V);
             unregister_code(KC_RCTL);
             unregister_code(KC_LSFT);
+        }
+
+        /* Make interacting with the window manager easier. */
+        SEQ_TWO_KEYS(KC_LALT, KC_0) {
+            register_alt_shift_sequence(KC_0);
+        }
+        SEQ_TWO_KEYS(KC_LALT, KC_1) {
+            register_alt_shift_sequence(KC_1);
+        }
+        SEQ_TWO_KEYS(KC_LALT, KC_2) {
+            register_alt_shift_sequence(KC_2);
+        }
+        SEQ_TWO_KEYS(KC_LALT, KC_3) {
+            register_alt_shift_sequence(KC_3);
+        }
+        SEQ_TWO_KEYS(KC_LALT, KC_4) {
+            register_alt_shift_sequence(KC_4);
+        }
+        SEQ_TWO_KEYS(KC_LALT, KC_5) {
+            register_alt_shift_sequence(KC_5);
+        }
+        SEQ_TWO_KEYS(KC_LALT, KC_6) {
+            register_alt_shift_sequence(KC_6);
+        }
+        SEQ_TWO_KEYS(KC_LALT, KC_7) {
+            register_alt_shift_sequence(KC_7);
+        }
+        SEQ_TWO_KEYS(KC_LALT, KC_8) {
+            register_alt_shift_sequence(KC_8);
+        }
+        SEQ_TWO_KEYS(KC_LALT, KC_9) {
+            register_alt_shift_sequence(KC_9);
         }
     }
 }
