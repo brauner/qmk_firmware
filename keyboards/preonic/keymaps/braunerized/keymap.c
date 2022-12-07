@@ -38,18 +38,17 @@ enum preonic_keycodes {
   BACKLIT
 };
 
-#define MOD_TAP_LSFT_ESC  LSFT_T(KC_ESC)
-#define MOD_TAP_LSFT_ENT  LSFT_T(KC_ENT)
+#define MOD_TAP_LSFT_ESC LSFT_T(KC_ESC)
+#define MOD_TAP_LSFT_ENT LSFT_T(KC_ENT)
 
-#define LT_HOLD_COPY      LT(_QWERTY, KC_C)
-#define LT_HOLD_CUT       LT(_QWERTY, KC_X)
-#define LT_HOLD_PASTE     LT(_QWERTY, KC_V)
-#define LT_LOWER_SPC      LT(_LOWER,  KC_SPC)
-
-#define LT_UMLAUT_AE   LT(_QWERTY, KC_A)
-#define LT_UMLAUT_OE   LT(_QWERTY, KC_O)
-#define LT_UMLAUT_UE   LT(_QWERTY, KC_U)
-#define LT_UMLAUT_SZ   LT(_QWERTY, KC_S)
+#define LT_COPY_C    LT(_QWERTY, KC_C)
+#define LT_CUT_X     LT(_QWERTY, KC_X)
+#define LT_PASTE_V   LT(_QWERTY, KC_V)
+#define LT_AE_A      LT(_QWERTY, KC_A)
+#define LT_OE_O      LT(_QWERTY, KC_O)
+#define LT_UE_U      LT(_QWERTY, KC_U)
+#define LT_SZ_S      LT(_QWERTY, KC_S)
+#define LT_LOWER_SPC LT(_LOWER,  KC_SPC)
 
 const key_override_t nop_shift_quote = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, KC_NO); /* " */
 const key_override_t nop_shift_dot   = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_NO);  /* < */
@@ -100,11 +99,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_preonic_grid(
-  KC_CAPS,          KC_1,         KC_2,         KC_3,         KC_4,          KC_5,    KC_6,        KC_7,         KC_8,    KC_9,         KC_0,    _______,
-  KC_LCTL,          KC_Q,         KC_W,         KC_E,         KC_R,          KC_T,    KC_Y,        LT_UMLAUT_UE, KC_I,    LT_UMLAUT_OE, KC_P,    KC_RCTL,
-  MOD_TAP_LSFT_ESC, LT_UMLAUT_AE, LT_UMLAUT_SZ, KC_D,         KC_F,          KC_G,    KC_H,        KC_J,         KC_K,    KC_L,         KC_QUOT, MOD_TAP_LSFT_ENT,
-  KC_LEAD,          KC_Z,         LT_HOLD_CUT,  LT_HOLD_COPY, LT_HOLD_PASTE, KC_B,    KC_N,        KC_M,         KC_COMM, KC_DOT,       KC_SLSH, KC_LEAD,
-  _______,          _______,      _______,      RAISE,        LOWER,         KC_LALT, TG(_MOUSE),  LT_LOWER_SPC, RAISE,   _______,      _______, MANAGE
+  KC_CAPS,          KC_1,    KC_2,     KC_3,      KC_4,       KC_5,    KC_6,       KC_7,         KC_8,    KC_9,    KC_0,    _______,
+  KC_LCTL,          KC_Q,    KC_W,     KC_E,      KC_R,       KC_T,    KC_Y,       LT_UE_U,      KC_I,    LT_OE_O, KC_P,    KC_RCTL,
+  MOD_TAP_LSFT_ESC, LT_AE_A, LT_SZ_S,  KC_D,      KC_F,       KC_G,    KC_H,       KC_J,         KC_K,    KC_L,    KC_QUOT, MOD_TAP_LSFT_ENT,
+  KC_LEAD,          KC_Z,    LT_CUT_X, LT_COPY_C, LT_PASTE_V, KC_B,    KC_N,       KC_M,         KC_COMM, KC_DOT,  KC_SLSH, KC_LEAD,
+  _______,          _______, _______,  RAISE,     LOWER,      KC_LALT, TG(_MOUSE), LT_LOWER_SPC, RAISE,   _______, _______, MANAGE
 ),
 
 /* Lower
@@ -301,43 +300,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
-        case LT_HOLD_CUT:
+        case LT_CUT_X:
           if (!record->tap.count && record->event.pressed) {
               tap_code16(C(KC_X)); /* cut on hold */
               return false;
           }
           return true;
-        case LT_HOLD_COPY:
+        case LT_COPY_C:
           if (!record->tap.count && record->event.pressed) {
               tap_code16(C(KC_C)); /* copy on hold */
               return false;
           }
           return true;
-        case LT_HOLD_PASTE:
+        case LT_PASTE_V:
           if (!record->tap.count && record->event.pressed) {
               tap_code16(C(KC_V)); /* paste on hold */
               return false;
           }
           return true;
-        case LT_UMLAUT_AE:
+        case LT_AE_A:
           if (!record->tap.count && record->event.pressed) {
               tap_code16(RALT(KC_Q));
               return false;
           }
           return true;
-        case LT_UMLAUT_OE:
+        case LT_OE_O:
           if (!record->tap.count && record->event.pressed) {
               tap_code16(RALT(KC_P));
               return false;
           }
           return true;
-        case LT_UMLAUT_UE:
+        case LT_UE_U:
           if (!record->tap.count && record->event.pressed) {
               tap_code16(RALT(KC_Y));
               return false;
           }
           return true;
-        case LT_UMLAUT_SZ:
+        case LT_SZ_S:
           if (!record->tap.count && record->event.pressed) {
               tap_code16(RALT(KC_S));
               return false;
