@@ -23,7 +23,7 @@ enum preonic_layers {
   _RAISE,
   _MOUSE,
   _MANAGE,
-  _UNUSED1,
+  _COMPOSITOR,
   _UNUSED2
 };
 
@@ -33,7 +33,7 @@ enum preonic_keycodes {
   RAISE,
   MOUSE,
   MANAGE,
-  UNUSED1,
+  COMPOSITOR,
   UNUSED2,
   BACKLIT
 };
@@ -50,20 +50,25 @@ enum preonic_keycodes {
 #define LT_SZ_S      LT(_QWERTY, KC_S)
 #define LT_LOWER_SPC LT(_LOWER,  KC_SPC)
 
-const key_override_t nop_shift_quote = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, KC_NO); /* " */
-const key_override_t nop_shift_dot   = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_NO);  /* < */
-const key_override_t nop_shift_comma = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_NO); /* > */
-const key_override_t nop_shift_slash = ko_make_basic(MOD_MASK_SHIFT, KC_SLSH, KC_NO); /* ? */
-const key_override_t nop_shift_one   = ko_make_basic(MOD_MASK_SHIFT, KC_1, KC_NO);    /* ! */
-const key_override_t nop_shift_two   = ko_make_basic(MOD_MASK_SHIFT, KC_2, KC_NO);    /* override @ */
-const key_override_t nop_shift_three = ko_make_basic(MOD_MASK_SHIFT, KC_3, KC_NO);    /* override # */
-const key_override_t nop_shift_four  = ko_make_basic(MOD_MASK_SHIFT, KC_4, KC_NO);    /* override $ */
-const key_override_t nop_shift_five  = ko_make_basic(MOD_MASK_SHIFT, KC_5, KC_NO);    /* override % */
-const key_override_t nop_shift_six   = ko_make_basic(MOD_MASK_SHIFT, KC_6, KC_NO);    /* override ^ */
-const key_override_t nop_shift_seven = ko_make_basic(MOD_MASK_SHIFT, KC_7, KC_NO);    /* override & */
-const key_override_t nop_shift_eight = ko_make_basic(MOD_MASK_SHIFT, KC_8, KC_NO);    /* override * */
-const key_override_t nop_shift_nine  = ko_make_basic(MOD_MASK_SHIFT, KC_9, KC_NO);    /* override ( */
-const key_override_t nop_shift_zero  = ko_make_basic(MOD_MASK_SHIFT, KC_0, KC_NO);    /* override ) */
+#define LM_COMP_LALT      LM(_COMPOSITOR, MOD_LALT)
+#define LM_COMP_LALT_LSFT LM(_COMPOSITOR, MOD_LALT | MOD_LSFT)
+
+#define KO_LAYER_MASK_EXCEPT(layer) ((~0) & ~(1 << layer))
+
+const key_override_t nop_shift_quote = ko_make_with_layers(MOD_MASK_SHIFT, KC_QUOT, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR)); /* " */
+const key_override_t nop_shift_dot   = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR));  /* < */
+const key_override_t nop_shift_comma = ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR)); /* > */
+const key_override_t nop_shift_slash = ko_make_with_layers(MOD_MASK_SHIFT, KC_SLSH, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR)); /* ? */
+const key_override_t nop_shift_one   = ko_make_with_layers(MOD_MASK_SHIFT, KC_1, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR));    /* ! */
+const key_override_t nop_shift_two   = ko_make_with_layers(MOD_MASK_SHIFT, KC_2, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR));    /* override @ */
+const key_override_t nop_shift_three = ko_make_with_layers(MOD_MASK_SHIFT, KC_3, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR));    /* override # */
+const key_override_t nop_shift_four  = ko_make_with_layers(MOD_MASK_SHIFT, KC_4, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR));    /* override $ */
+const key_override_t nop_shift_five  = ko_make_with_layers(MOD_MASK_SHIFT, KC_5, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR));    /* override % */
+const key_override_t nop_shift_six   = ko_make_with_layers(MOD_MASK_SHIFT, KC_6, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR));    /* override ^ */
+const key_override_t nop_shift_seven = ko_make_with_layers(MOD_MASK_SHIFT, KC_7, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR));    /* override & */
+const key_override_t nop_shift_eight = ko_make_with_layers(MOD_MASK_SHIFT, KC_8, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR));    /* override * */
+const key_override_t nop_shift_nine  = ko_make_with_layers(MOD_MASK_SHIFT, KC_9, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR));    /* override ( */
+const key_override_t nop_shift_zero  = ko_make_with_layers(MOD_MASK_SHIFT, KC_0, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR));    /* override ) */
 
 const key_override_t **key_overrides = (const key_override_t *[]){
   &nop_shift_quote,
@@ -99,11 +104,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_preonic_grid(
-  KC_CAPS,          KC_1,    KC_2,     KC_3,      KC_4,       KC_5,    KC_6,       KC_7,         KC_8,    KC_9,    KC_0,    _______,
-  KC_LCTL,          KC_Q,    KC_W,     KC_E,      KC_R,       KC_T,    KC_Y,       LT_UE_U,      KC_I,    LT_OE_O, KC_P,    KC_RCTL,
-  MOD_TAP_LSFT_ESC, LT_AE_A, LT_SZ_S,  KC_D,      KC_F,       KC_G,    KC_H,       KC_J,         KC_K,    KC_L,    KC_QUOT, MOD_TAP_LSFT_ENT,
-  KC_LEAD,          KC_Z,    LT_CUT_X, LT_COPY_C, LT_PASTE_V, KC_B,    KC_N,       KC_M,         KC_COMM, KC_DOT,  KC_SLSH, KC_LEAD,
-  _______,          _______, _______,  RAISE,     LOWER,      KC_LALT, TG(_MOUSE), LT_LOWER_SPC, RAISE,   _______, _______, MANAGE
+  KC_CAPS,          KC_1,    KC_2,              KC_3,      KC_4,       KC_5,         KC_6,       KC_7,         KC_8,    KC_9,    KC_0,    _______,
+  KC_LCTL,          KC_Q,    KC_W,              KC_E,      KC_R,       KC_T,         KC_Y,       LT_UE_U,      KC_I,    LT_OE_O, KC_P,    KC_RCTL,
+  MOD_TAP_LSFT_ESC, LT_AE_A, LT_SZ_S,           KC_D,      KC_F,       KC_G,         KC_H,       KC_J,         KC_K,    KC_L,    KC_QUOT, MOD_TAP_LSFT_ENT,
+  KC_LEAD,          KC_Z,    LT_CUT_X,          LT_COPY_C, LT_PASTE_V, KC_B,         KC_N,       KC_M,         KC_COMM, KC_DOT,  KC_SLSH, KC_LEAD,
+  _______,          _______, LM_COMP_LALT_LSFT, RAISE,     LOWER,      LM_COMP_LALT, TG(_MOUSE), LT_LOWER_SPC, RAISE,   _______, _______, MANAGE
 ),
 
 /* Lower
@@ -189,25 +194,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
-/* Unused1
+/* Compositor
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   '  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |   Z  |   X  |   C  |  V   |   B  |   N  |   M  |   ,  |   .  |   /  |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |Space |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_UNUSED1] = LAYOUT_preonic_grid(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+[_COMPOSITOR] = LAYOUT_preonic_grid(
+  XXXXXXX, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,   KC_8,    KC_9,    KC_0,    XXXXXXX,
+  XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,   KC_I,    KC_O,    KC_P,    XXXXXXX,
+  XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,   KC_K,    KC_L,    KC_QUOT, XXXXXXX,
+  XXXXXXX, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SPC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 /* Unused2
@@ -264,11 +269,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
-        case UNUSED1:
+        case COMPOSITOR:
           if (record->event.pressed) {
-            layer_on(_UNUSED1);
+            layer_on(_COMPOSITOR);
           } else {
-            layer_off(_UNUSED1);
+            layer_off(_COMPOSITOR);
           }
           return false;
           break;
