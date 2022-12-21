@@ -46,6 +46,7 @@ enum preonic_keycodes {
 #define LT_OE_O      LT(_QWERTY, KC_O)
 #define LT_UE_U      LT(_QWERTY, KC_U)
 #define LT_SZ_S      LT(_QWERTY, KC_S)
+#define LT_E_ACGRV   LT(_QWERTY, KC_E)
 #define LT_LOWER_SPC LT(_LOWER,  KC_SPC)
 
 #define LM_COMP_LALT      LM(_COMPOSITOR, MOD_LALT)
@@ -137,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,------------------------------------------------------------------------------------------------------------------------------------.
  * | Caps Lock|   1  |         2          |     3     |     4      |       5       |   6  |     7      |   8  |   9  |   0  |            |
  * |----------+------+--------------------+-----------+------------+---------------+------+------------+------+------+------+------------|
- * | Ctrl     |   Q  |         W          |     E     |     R      |       T       |   Y  |    Ü/U     |   I  | Ö/O  |   P  | Ctrl       |
+ * | Ctrl     |   Q  |         W          |    E/É    |     R      |       T       |   Y  |    Ü/U     |   I  | Ö/O  |   P  | Ctrl       |
  * |----------+------+--------------------+-----------+------------+----------------------+------------+------+------+------+------------|
  * | Shift/Esc| Ä/A  |        ß/S         |     D     |     F      |       G       |   H  |     J      |   K  |   L  |   '  | Shift/Enter|
  * |----------+------+--------------------+-----------+------------+---------------|------+------------+------+------+------+------------|
@@ -147,11 +148,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------------------------------------------------------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_preonic_grid(
-  KC_CAPS,          KC_1,    KC_2,              KC_3,   KC_4,   KC_5,         KC_6,       KC_7,         KC_8,    KC_9,    KC_0,       _______,
-  KC_LCTL,          KC_Q,    KC_W,              KC_E,   KC_R,   KC_T,         LT_COPY_Y,  KC_U,         KC_I,    KC_O,    LT_PASTE_P, KC_RCTL,
-  MOD_TAP_LSFT_ESC, LT_AE_A, LT_SZ_S,           KC_D,   KC_F,   KC_G,         KC_H,       KC_J,         KC_K,    KC_L,    KC_QUOT,    MOD_TAP_LSFT_ENT,
-  KC_LEAD,          KC_Z,    LT_CUT_X,          KC_C,   KC_V,   KC_B,         KC_N,       KC_M,         KC_COMM, KC_DOT,  KC_SLSH,    KC_LEAD,
-  _______,          _______, LM_COMP_LALT_LSFT, RAISE,  LOWER,  LM_COMP_LALT, TG(_MOUSE), LT_LOWER_SPC, RAISE,   _______, _______,    MANAGE
+  KC_CAPS,          KC_1,    KC_2,              KC_3,       KC_4,   KC_5,         KC_6,       KC_7,         KC_8,    KC_9,    KC_0,       _______,
+  KC_LCTL,          KC_Q,    KC_W,              LT_E_ACGRV, KC_R,   KC_T,         LT_COPY_Y,  KC_U,         KC_I,    KC_O,    LT_PASTE_P, KC_RCTL,
+  MOD_TAP_LSFT_ESC, LT_AE_A, LT_SZ_S,           KC_D,       KC_F,   KC_G,         KC_H,       KC_J,         KC_K,    KC_L,    KC_QUOT,    MOD_TAP_LSFT_ENT,
+  KC_LEAD,          KC_Z,    LT_CUT_X,          KC_C,       KC_V,   KC_B,         KC_N,       KC_M,         KC_COMM, KC_DOT,  KC_SLSH,    KC_LEAD,
+  _______,          _______, LM_COMP_LALT_LSFT, RAISE,      LOWER,  LM_COMP_LALT, TG(_MOUSE), LT_LOWER_SPC, RAISE,   _______, _______,    MANAGE
 ),
 
 /* Lower
@@ -358,6 +359,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case LT_SZ_S:
           if (!record->tap.count && record->event.pressed) {
               tap_code16(RALT(KC_S));
+              return false;
+          }
+          return true;
+        case LT_E_ACGRV:
+          if (!record->tap.count && record->event.pressed) {
+              tap_code16(RALT(KC_E));
               return false;
           }
           return true;
