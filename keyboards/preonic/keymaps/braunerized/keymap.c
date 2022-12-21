@@ -53,6 +53,51 @@ enum preonic_keycodes {
 
 #define KO_LAYER_MASK_EXCEPT(layer) ((~0) & ~(1 << layer))
 
+enum combos {
+  COMBO_LPRN_RPRN, /* (|) */
+  COMBO_LBRC_RBRC, /* [|] */
+  COMBO_LCBR_RCBR, /* {|} */
+  COMBO_MAX,
+};
+
+uint16_t COMBO_LEN = COMBO_MAX;
+
+const uint16_t PROGMEM combo_lprn_rprn[] = {KC_E, KC_R, COMBO_END};
+const uint16_t PROGMEM combo_lbrc_rbrc[] = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM combo_lcbr_rcbr[] = {KC_C, KC_V, COMBO_END};
+
+combo_t key_combos[COMBO_MAX] = {
+  [COMBO_LPRN_RPRN] = COMBO_ACTION(combo_lprn_rprn),
+  [COMBO_LBRC_RBRC] = COMBO_ACTION(combo_lbrc_rbrc),
+  [COMBO_LCBR_RCBR] = COMBO_ACTION(combo_lcbr_rcbr),
+};
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case COMBO_LPRN_RPRN:
+      if (pressed) {
+        tap_code16(KC_LPRN);
+        tap_code16(KC_RPRN);
+        tap_code16(KC_LEFT);
+      }
+      break;
+    case COMBO_LBRC_RBRC:
+      if (pressed) {
+        tap_code16(KC_LBRC);
+        tap_code16(KC_RBRC);
+        tap_code16(KC_LEFT);
+      }
+      break;
+    case COMBO_LCBR_RCBR:
+      if (pressed) {
+        tap_code16(KC_LCBR);
+        tap_code16(KC_RCBR);
+        tap_code16(KC_LEFT);
+      }
+      break;
+  }
+}
+
 const key_override_t nop_shift_quote = ko_make_with_layers(MOD_MASK_SHIFT, KC_QUOT, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR)); /* " */
 const key_override_t nop_shift_dot   = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR));  /* < */
 const key_override_t nop_shift_comma = ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, KC_NO, KO_LAYER_MASK_EXCEPT(_COMPOSITOR)); /* > */
@@ -418,27 +463,6 @@ static inline void leader_bindings(void)
             unregister_code(KC_V);
             unregister_code(KC_RCTL);
             unregister_code(KC_LSFT);
-        }
-
-        /* (|) */
-        SEQ_TWO_KEYS(KC_E, KC_E) {
-            tap_code16(KC_LPRN);
-            tap_code16(KC_RPRN);
-            tap_code16(KC_LEFT);
-        }
-
-        /* [|] */
-        SEQ_TWO_KEYS(KC_D, KC_D) {
-            tap_code16(KC_LBRC);
-            tap_code16(KC_RBRC);
-            tap_code16(KC_LEFT);
-        }
-
-        /* {|} */
-        SEQ_TWO_KEYS(KC_C, KC_C) {
-            tap_code16(KC_LCBR);
-            tap_code16(KC_RCBR);
-            tap_code16(KC_LEFT);
         }
     }
 }
