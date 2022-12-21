@@ -419,6 +419,27 @@ static inline void leader_bindings(void)
             unregister_code(KC_RCTL);
             unregister_code(KC_LSFT);
         }
+
+        /* (|) */
+        SEQ_TWO_KEYS(KC_E, KC_E) {
+            tap_code16(KC_LPRN);
+            tap_code16(KC_RPRN);
+            tap_code16(KC_LEFT);
+        }
+
+        /* [|] */
+        SEQ_TWO_KEYS(KC_D, KC_D) {
+            tap_code16(KC_LBRC);
+            tap_code16(KC_RBRC);
+            tap_code16(KC_LEFT);
+        }
+
+        /* {|} */
+        SEQ_TWO_KEYS(KC_C, KC_C) {
+            tap_code16(KC_LCBR);
+            tap_code16(KC_RCBR);
+            tap_code16(KC_LEFT);
+        }
     }
 }
 
